@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="rtl" lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Application</title>
+<title>تطبيق الموظفين</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -55,63 +55,77 @@
         border-radius: 5px;
         background-color: #f9f9f9;
     }
+    .employee-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .employee-card h4 {
+        margin-top: 0;
+    }
     .employee-details {
         margin-top: 10px;
+    }
+    .employee-details p {
+        margin: 5px 0;
     }
 </style>
 </head>
 <body>
     <div class="container">
-        <h1>HR Application</h1>
+        <h1>تطبيق الموظفين</h1>
         <h3>تم برمجة التطبيق بواسطة احمد وائل كمال</h3>
         <div id="loginForm">
             <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="اسم المستخدم">اسم المستخدم:</label>
                 <input type="text" id="username" placeholder="Enter username">
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="الباسورد">الباسورد:</label>
                 <input type="password" id="password" placeholder="Enter password">
             </div>
-            <button onclick="login()">Login</button>
+            <button onclick="login()">تسجيل الدخول</button>
         </div>
 
         <div id="adminPanel" style="display: none;">
-            <h2>Welcome Admin</h2>
+            <h2>اهلا بك يامدير</h2>
             <div class="form-group">
-                <label for="employeeName">Employee Name:</label>
+                <label for="employeeName">اسم الموظف</label>
                 <input type="text" id="employeeName" placeholder="Enter employee name">
             </div>
             <div class="form-group">
-                <label for="employeeCode">Employee Code:</label>
+                <label for="employeeCode">كود الموظف:</label>
                 <input type="text" id="employeeCode" placeholder="Enter employee code">
             </div>
             <div class="form-group">
-                <label for="hireDate">Hire Date:</label>
+                <label for="hireDate">تاريخ التعيين:</label>
                 <input type="date" id="hireDate">
             </div>
             <div class="form-group">
-                <label for="todayDate">Today's Date:</label>
+                <label for="todayDate">تاريخ اليوم:</label>
                 <input type="date" id="todayDate">
             </div>
             <div class="form-group">
-                <label for="age">Age:</label>
+                <label for="age">السن:</label>
                 <input type="number" id="age" placeholder="Enter age">
             </div>
             <div class="form-group">
-                <label for="jobTitle">Job Title:</label>
+                <label for="jobTitle">المسمي الوظيفي:</label>
                 <input type="text" id="jobTitle" placeholder="Enter job title">
             </div>
             <div class="form-group">
-                <label for="salary">Salary:</label>
+                <label for="salary">المرتب:</label>
                 <input type="number" id="salary" placeholder="Enter salary">
             </div>
             <div class="form-group">
-                <label for="rating">Employee Rating:</label>
+                <label for="rating">تقيم الموظف:</label>
                 <input type="number" id="rating" placeholder="Enter rating">
             </div>
             <div class="form-group">
-                <label for="department">Department:</label>
+                <label for="department">الاقسام:</label>
                 <select id="department">
                     <option value="الاطفال">الاطفال</option>
                     <option value="البقالة">البقالة</option>
@@ -134,18 +148,66 @@
                     <option value="خدمة عملاء">خدمة عملاء</option>
                 </select>
             </div>
-            <button onclick="addEmployee()">Add Employee</button>
-            
             <div class="form-group">
-                <label for="deleteEmployeeCode">Select Employee to Delete:</label>
+                <label for="branch">اختار الفرع:</label>
+                <select id="branch">
+                    <option value="المنتزة">المنتزة</option>
+                    <option value="الابراهيمية">الابراهيمية</option>
+                    <option value="البيطاش">البيطاش</option>
+                    <option value="بيناكي">بيناكي</option>
+                    <option value="جناكليس">جناكليس</option>
+                    <option value="روز جاردن">روز جاردن</option>
+                    <option value="سان ستيفانو">سان ستيفانو</option>
+                    <option value="محرم بك">محرم بك</option>
+                    <option value="وابور المياه">وابور المياه</option>
+                    <option value="العصافرة">العصافرة</option>
+                    <option value="الفراعنة">الفراعنة</option>
+                    <option value="سبورتنج">سبورتنج</option>
+                    <option value="المنشا">المنشا</option>
+                    <option value="راغب">راغب</option>
+                    <option value="برج العرب">برج العرب</option>
+                    <option value="الجمرك">الجمرك</option>
+                    <option value="المنصورة">المنصورة</option>
+                    <option value="صلاح سالم">صلاح سالم</option>
+                    <option value="حلمية الزيتون">حلمية الزيتون</option>
+                    <option value="مارينا">مارينا</option>
+                    <option value="الساحل الشمالي">الساحل الشمالي</option>
+                    <option value="الادارة العامة">الادارة العامة</option>
+                    <option value="الغردقة">الغردقة</option>
+                    <option value="كورنيش ميامي">كورنيش ميامي</option>
+                    <option value="جرين تاورز">جرين تاورز</option>
+                    <option value="الهرم">الهرم</option>
+                    <option value="خالد بن الوليد">خالد بن الوليد</option>
+                    <option value="بشاير الخير">بشاير الخير</option>
+                    <option value="الغردقة الكوثر">الغردقة الكوثر</option>
+                    <option value="التجمع">التجمع</option>
+                    <option value="جسر السويس">جسر السويس</option>
+                    <option value="محطة الرمل">محطة الرمل</option>
+                    <option value="الهرم">الهرم</option>
+                    <option value="6 اكتوبر">6 اكتوبر</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="employeeStatus">حالة الموظف:</label>
+                <select id="employeeStatus">
+                    <option value="موظف مؤقت">موظف مؤقت</option>
+                    <option value="موظف دائم">موظف دائم</option>
+                    <option value="موظف تحت الاختبار">موظف تحت الاختبار</option>
+                    <option value="موظف معار">موظف معار</option>
+                </select>
+            </div>
+            <button onclick="addEmployee()">اضافة موظف</button>
+
+            <div class="form-group">
+                <label for="deleteEmployeeCode">اختار الموظف لحذفه من خلال الكود:</label>
                 <select id="deleteEmployeeCode"></select>
             </div>
-            <button onclick="deleteEmployee()">Delete Employee</button>
+            <button onclick="deleteEmployee()">حذف الموظف</button>
             <button onclick="logout()">Logout</button>
-            <button onclick="printEmployeeInfo()">Print</button>
+            <button onclick="printEmployeeInfo()">طباعة التقرير</button>
 
             <div class="employee-info" id="employeeInfo" style="display: none;">
-                <h3>New Employee Information:</h3>
+                <h3>معلومات الموظف:</h3>
                 <div class="employee-details" id="employeeDetails"></div>
             </div>
         </div>
@@ -181,9 +243,11 @@
             const salary = document.getElementById('salary').value;
             const rating = document.getElementById('rating').value;
             const department = document.getElementById('department').value;
+            const branch = document.getElementById('branch').value;
+            const employeeStatus = document.getElementById('employeeStatus').value;
 
             const employee = {
-                employeeName, employeeCode, hireDate, todayDate, age, jobTitle, salary, rating, department
+                employeeName, employeeCode, hireDate, todayDate, age, jobTitle, salary, rating, department, branch, employeeStatus
             };
 
             let employees = JSON.parse(localStorage.getItem('employees')) || [];
@@ -221,15 +285,21 @@
 
             if (employees.length > 0) {
                 const employeeInfo = employees.map(employee => {
-                    return `Employee Name: ${employee.employeeName}<br>
-                            Employee Code: ${employee.employeeCode}<br>
-                            Hire Date: ${employee.hireDate}<br>
-                            Today's Date: ${employee.todayDate}<br>
-                            Age: ${employee.age}<br>
-                            Job Title: ${employee.jobTitle}<br>
-                            Salary: ${employee.salary}<br>
-                            Rating: ${employee.rating}<br>
-                            Department: ${employee.department}<br><hr>`;
+                    return `<div class="employee-card">
+                                <h4>${employee.employeeName}</h4>
+                                <div class="employee-details">
+                                    <p><strong>كود الموظف:</strong> ${employee.employeeCode}</p>
+                                    <p><strong>تاريخ التعيين:</strong> ${employee.hireDate}</p>
+                                    <p><strong>تاريخ اليوم:</strong> ${employee.todayDate}</p>
+                                    <p><strong>السن:</strong> ${employee.age}</p>
+                                    <p><strong>المسمي الوظيفي:</strong> ${employee.jobTitle}</p>
+                                    <p><strong>المرتب:</strong> ${employee.salary}</p>
+                                    <p><strong>تقيم الموظف:</strong> ${employee.rating}</p>
+                                    <p><strong>الاقسام:</strong> ${employee.department}</p>
+                                    <p><strong>الفرع:</strong> ${employee.branch}</p>
+                                    <p><strong>حالة الموظف:</strong> ${employee.employeeStatus}</p>
+                                </div>
+                            </div>`;
                 }).join('');
                 employeeDetails.innerHTML = employeeInfo;
                 document.getElementById('employeeInfo').style.display = 'block';
