@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Application</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+        color: #333;
+        text-align: center;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .employee-info {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .employee-details {
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>HR Application</h1>
+        <h3>تم برمجة التطبيق بواسطة احمد وائل كمال</h3>
+        <div id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <div id="adminPanel" style="display: none;">
+            <h2>Welcome Admin</h2>
+            <div class="form-group">
+                <label for="employeeName">Employee Name:</label>
+                <input type="text" id="employeeName" placeholder="Enter employee name">
+            </div>
+            <div class="form-group">
+                <label for="employeeCode">Employee Code:</label>
+                <input type="text" id="employeeCode" placeholder="Enter employee code">
+            </div>
+            <div class="form-group">
+                <label for="hireDate">Hire Date:</label>
+                <input type="date" id="hireDate">
+            </div>
+            <div class="form-group">
+                <label for="todayDate">Today's Date:</label>
+                <input type="date" id="todayDate">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" placeholder="Enter age">
+            </div>
+            <div class="form-group">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" id="jobTitle" placeholder="Enter job title">
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary:</label>
+                <input type="number" id="salary" placeholder="Enter salary">
+            </div>
+            <div class="form-group">
+                <label for="rating">Employee Rating:</label>
+                <input type="number" id="rating" placeholder="Enter rating">
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department">
+                    <option value="الاطفال">الاطفال</option>
+                    <option value="البقالة">البقالة</option>
+                    <option value="المعلبات">المعلبات</option>
+                    <option value="الخضار والفاكهة">الخضار والفاكهة</option>
+                    <option value="جزارة بلدي">جزارة بلدي</option>
+                    <option value="جزارة مستورد">جزارة مستورد</option>
+                    <option value="ورقيات">ورقيات</option>
+                    <option value="منظفات">منظفات</option>
+                    <option value="تجميل">تجميل</option>
+                    <option value="دوجان">دوجان</option>
+                    <option value="البان">البان</option>
+                    <option value="مفروشات">مفروشات</option>
+                    <option value="اجهزة">اجهزة</option>
+                    <option value="حلويات">حلويات</option>
+                    <option value="عطارة">عطارة</option>
+                    <option value="ادارة الامن">ادارة الامن</option>
+                    <option value="كاشير">كاشير</option>
+                    <option value="خدمات عامة">خدمات عامة</option>
+                    <option value="خدمة عملاء">خدمة عملاء</option>
+                </select>
+            </div>
+            <button onclick="addEmployee()">Add Employee</button>
+            
+            <div class="form-group">
+                <label for="deleteEmployeeCode">Select Employee to Delete:</label>
+                <select id="deleteEmployeeCode"></select>
+            </div>
+            <button onclick="deleteEmployee()">Delete Employee</button>
+            <button onclick="logout()">Logout</button>
+            <button onclick="printEmployeeInfo()">Print</button>
+
+            <div class="employee-info" id="employeeInfo" style="display: none;">
+                <h3>New Employee Information:</h3>
+                <div class="employee-details" id="employeeDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let loggedIn = false;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username === 'admin' && password === 'admin') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loggedIn = true;
+                displayEmployees();
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+        }
+
+        function addEmployee() {
+            if (!loggedIn) {
+                alert('Please login as admin first.');
+                return;
+            }
+            const employeeName = document.getElementById('employeeName').value;
+            const employeeCode = document.getElementById('employeeCode').value;
+            const hireDate = document.getElementById('hireDate').value;
+            const todayDate = document.getElementById('todayDate').value;
+            const age = document.getElementById('age').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const salary = document.getElementById('salary').value;
+            const rating = document.getElementById('rating').value;
+            const department = document.getElementById('department').value;
+
+            const employee = {
+                employeeName, employeeCode, hireDate, todayDate, age, jobTitle, salary, rating, department
+            };
+
+            let employees = JSON.parse(localStorage.getItem('employees')) || [];
+            employees.push(employee);
+            localStorage.setItem('employees', JSON.stringify(employees));
+            displayEmployees();
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function deleteEmployee() {
+            if (!loggedIn) {
+                alert('Please login as admin first.');
+                return;
+            }
+            const employeeCode = document.getElementById('deleteEmployeeCode').value;
+            let employees = JSON.parse(localStorage.getItem('employees')) || [];
+            employees = employees.filter(employee => employee.employeeCode !== employeeCode);
+            localStorage.setItem('employees', JSON.stringify(employees));
+            displayEmployees();
+            alert('Employee deleted successfully.');
+        }
+
+        function logout() {
+            loggedIn = false;
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('employeeInfo').style.display = 'none';
+        }
+
+        function displayEmployees() {
+            const employees = JSON.parse(localStorage.getItem('employees')) || [];
+            const employeeDetails = document.getElementById('employeeDetails');
+            const deleteEmployeeCode = document.getElementById('deleteEmployeeCode');
+            deleteEmployeeCode.innerHTML = '';
+
+            if (employees.length > 0) {
+                const employeeInfo = employees.map(employee => {
+                    return `Employee Name: ${employee.employeeName}<br>
+                            Employee Code: ${employee.employeeCode}<br>
+                            Hire Date: ${employee.hireDate}<br>
+                            Today's Date: ${employee.todayDate}<br>
+                            Age: ${employee.age}<br>
+                            Job Title: ${employee.jobTitle}<br>
+                            Salary: ${employee.salary}<br>
+                            Rating: ${employee.rating}<br>
+                            Department: ${employee.department}<br><hr>`;
+                }).join('');
+                employeeDetails.innerHTML = employeeInfo;
+                document.getElementById('employeeInfo').style.display = 'block';
+
+                employees.forEach(employee => {
+                    const option = document.createElement('option');
+                    option.value = employee.employeeCode;
+                    option.textContent = employee.employeeCode;
+                    deleteEmployeeCode.appendChild(option);
+                });
+            } else {
+                employeeDetails.innerHTML = '';
+                document.getElementById('employeeInfo').style.display = 'none';
+            }
+        }
+
+        function printEmployeeInfo() {
+            const employeeInfo = document.getElementById('employeeInfo').innerHTML;
+            const originalContents = document.body.innerHTML;
+            document.body.innerHTML = employeeInfo;
+            window.print();
+            document.body.innerHTML = originalContents;
+            displayEmployees();
+        }
+    </script>
+</body>
+</html>
